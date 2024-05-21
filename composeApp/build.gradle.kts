@@ -14,6 +14,9 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.room)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -24,7 +27,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -35,9 +38,8 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
-        
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
@@ -48,6 +50,10 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(project(":chipmango-kmp-core"))
+            implementation(project(":chipmango-kmp-platform"))
+            implementation(project(":chipmango-kmp-datetime"))
+            implementation(project(":chipmango-kmp-theme"))
+            implementation(project(":chipmango-kmp-uikit"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -65,6 +71,14 @@ kotlin {
             // Lifecycle ViewModel
             implementation(libs.lifecycle.viewmodel.compose)
 
+            // Room
+            implementation(libs.room.runtime)
+
+            // Kotlinx DateTime
+            implementation(libs.kotlinx.datetime)
+
+            // Kotlinx Serialization
+            implementation(libs.kotlinx.serialization.json)
         }
     }
 }
@@ -101,4 +115,19 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
+
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+    }
+}
+
+dependencies {
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }

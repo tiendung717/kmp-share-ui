@@ -1,4 +1,4 @@
-rootProject.name = "KMP-Compose-App"
+rootProject.name = "KMP-App"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -30,3 +30,7 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":chipmango-kmp-core")
+include(":chipmango-kmp-datetime")
+include(":chipmango-kmp-theme")
+include(":chipmango-kmp-uikit")
+include(":chipmango-kmp-platform")

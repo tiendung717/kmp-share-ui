@@ -1,0 +1,12 @@
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path
+        name="cached"
+        path="." />
+    <files-path
+        name="file"
+        path="." />
+
+    <external-path
+        name="Documents"
+        path="." />
+</paths>
